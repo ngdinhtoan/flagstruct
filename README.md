@@ -1,5 +1,7 @@
 # FlagStruct - simple way to register and parse flag into struct
 
+[![Build Status](https://travis-ci.org/ngdinhtoan/flagstruct.svg)](https://travis-ci.org/ngdinhtoan/flagstruct)
+
 ## Install
 
     go get -u github.com/ngdinhtoan/flagstruct
