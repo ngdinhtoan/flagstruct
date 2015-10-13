@@ -6,9 +6,11 @@
 
     go get -u github.com/ngdinhtoan/flagstruct
 
-## Example
+## Tag syntax
 
-Tag structure: `flag:"flagname[,default_value[,usage]]"`
+	`flag:"flagname[,default_value[,usage]]"`
+
+## Example
 
 ```go
 package main
