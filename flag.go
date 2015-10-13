@@ -8,6 +8,13 @@ import (
 	"unsafe"
 )
 
+var (
+	// ErrNotPointer returns when pass an argument to Parse function that not a pointer which point to a struct
+	ErrNotPointer = errors.New("type of the first argument must be a pointer that point to a struct")
+	// ErrFlagParsed returns when
+	ErrFlagParsed = errors.New("flag set has been parsed, could not register more flag")
+)
+
 // Parse properties of struct to flag,
 // use default flag set, which is flag.CommandLine
 func Parse(i interface{}) error {
@@ -16,15 +23,22 @@ func Parse(i interface{}) error {
 
 func parseByFlagSet(i interface{}, fs *flag.FlagSet, args []string) error {
 	if !isStruct(i) {
-		return errors.New("type of the first argument must be a pointer that point to a struct")
+		return ErrNotPointer
 	}
 
-	registerFlagStruct(i, fs)
+	if err := registerFlagStruct(i, fs); err != nil {
+		return err
+	}
+
 	return fs.Parse(args)
 }
 
 // registerFlagStruct parse struct field, and register with flag set
-func registerFlagStruct(i interface{}, fs *flag.FlagSet) {
+func registerFlagStruct(i interface{}, fs *flag.FlagSet) error {
+	if fs.Parsed() {
+		return ErrFlagParsed
+	}
+
 	sf := structFields(i)
 	for _, fd := range sf {
 		field := fd.field
@@ -52,4 +66,6 @@ func registerFlagStruct(i interface{}, fs *flag.FlagSet) {
 			panic("only support field types: int, int64, uint, uint64, float64, string and bool.")
 		}
 	}
+
+	return nil
 }

@@ -14,7 +14,9 @@ type dbConfig struct {
 
 func main() {
 	conf := dbConfig{}
-	flagstruct.Parse(&conf)
+	if err := flagstruct.Parse(&conf); err != nil {
+		fmt.Println("Error:", err)
+	}
 
 	fmt.Println("Hostname:", conf.Hostname)
 	fmt.Println("Port:", conf.Port)
