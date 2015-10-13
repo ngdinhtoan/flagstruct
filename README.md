@@ -13,24 +13,34 @@ Tag structure: `flag:"flagname[,default_value[,usage]]"`
 ```go
 package main
 
-import "github.com/ngdinhtoan/flagstruct"
+import (
+	"fmt"
 
-type DbConfig struct {
-    Hostname string `flag:"hostname,localhost,Hostname"`
-    Port     uint64 `flag:"port"`
-    DbName   string `flag:"db_name,,Database name"`
+	"github.com/ngdinhtoan/flagstruct"
+)
+
+type dbConfig struct {
+	Hostname string `flag:"hostname,localhost,Hostname"`
+	Port     uint64 `flag:"port,3306"`
+	DbName   string `flag:"db_name,,Database name"`
 }
 
 func main() {
-    conf := DbConfig{}
-    flagstruct.Parse(&conf)
+	conf := dbConfig{}
+	flagstruct.Parse(&conf)
 
-    fmt.Println("Hostname: ", conf.Hostname)
-    fmt.Println("Port: ", conf.Port)
-    fmt.Println("DB Name: ", conf.DbName)
+	fmt.Println("Hostname:", conf.Hostname)
+	fmt.Println("Port:", conf.Port)
+	fmt.Println("DB Name:", conf.DbName)
 }
 ```
 
 Run with some options:
 
-    go run main.go -hostname=127.0.0.1 -port=5000 -db_name=test_db
+    go run main.go -hostname=127.0.0.1 -db_name=test_db
+
+Output:
+
+    Hostname: 127.0.0.1
+    Port: 3306
+    DB Name: test_db
