@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ngdinhtoan/flagstruct.svg)](https://travis-ci.org/ngdinhtoan/flagstruct)
 [![GoDoc](https://godoc.org/github.com/ngdinhtoan/flagstruct?status.svg)](https://godoc.org/github.com/ngdinhtoan/flagstruct)
+[![Coverage Status](https://coveralls.io/repos/ngdinhtoan/flagstruct/badge.svg?branch=master&service=github)](https://coveralls.io/github/ngdinhtoan/flagstruct?branch=master)
 
 ## Install
 
