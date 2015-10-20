@@ -19,7 +19,7 @@ type dbconfig struct {
 func TestParse(t *testing.T) {
 	dc := dbconfig{}
 	fs := flag.NewFlagSet("test", flag.PanicOnError)
-	if err := parseByFlagSet(&dc, fs, []string{"-host=localhost", "--port", "1234", "-slave"}); err != nil {
+	if err := ParseByFlagSet(&dc, fs, []string{"-host=localhost", "--port", "1234", "-slave"}); err != nil {
 		t.Fatal(err)
 	}
 
