@@ -18,7 +18,10 @@ var (
 )
 
 // Parse properties of struct to flag,
-// use default flag set, which is flag.CommandLine
+// use default flag set, which is flag.CommandLine.
+//
+// Data type of field in struct must be supported by flag package:
+// int, int64, uint, uint64, float64, string, bool
 func Parse(i interface{}) error {
 	return ParseByFlagSet(i, flag.CommandLine, os.Args[1:])
 }

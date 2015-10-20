@@ -38,3 +38,26 @@ func TestParse(t *testing.T) {
 
 	fs.PrintDefaults()
 }
+
+func ExampleParseByFlagSet() {
+	type dbConfig struct {
+		Host         string `flag:"host,localhost,hostname of database server"`
+		Port         int64  `flag:"port,3306,port of database server"`
+		DbName       string `flag:"db_name,test_db,database name"`
+		Slave        bool   `flag:"slave"`
+		MaxConnetion uint   `flag:"max_connection,50"`
+	}
+
+	dc := dbConfig{}
+	fs := flag.NewFlagSet("test", flag.PanicOnError)
+	if err := ParseByFlagSet(&dc, fs, []string{"-host=localhost", "-slave"}); err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("Host:", dc.Host)
+	fmt.Println("Port:", dc.Port)
+
+	// Output:
+	// Host: localhost
+	// Port: 3306
+}
