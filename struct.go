@@ -60,8 +60,8 @@ func structFields(i interface{}) []fieldData {
 	return f
 }
 
-// isStruct returns true if the given interface is a pointer to a struct.
-func isStruct(s interface{}) bool {
+// isStructPointer returns true if the given interface is a pointer to a struct.
+func isStructPointer(s interface{}) bool {
 	v := reflect.ValueOf(s)
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()

@@ -28,7 +28,7 @@ func Parse(i interface{}) error {
 
 // ParseByFlagSet parse given flag set and arguments into struct
 func ParseByFlagSet(i interface{}, fs *flag.FlagSet, args []string) error {
-	if !isStruct(i) {
+	if !isStructPointer(i) {
 		return ErrNotPointer
 	}
 
