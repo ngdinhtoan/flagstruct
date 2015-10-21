@@ -69,24 +69,22 @@ func TestAllType(t *testing.T) {
 }
 
 func TestErrUnsupportType(t *testing.T) {
-	type ExportStruct struct{}
 	type testStruct struct {
-		ExportStruct         // anonymous field
-		StringPtr    *string `flag:"string-ptr"`
+		StringPtr *string `flag:"string-ptr"`
 	}
 
-	err := Parse(&testStruct{})
+	fs := flag.NewFlagSet("test", flag.PanicOnError)
+	err := ParseByFlagSet(&testStruct{}, fs, []string{})
 
 	if err != ErrUnsupportType {
-		t.Fail()
+		t.Fatalf("error: %v", err)
 	}
 }
 
-func TestNotPointerToStruct(t *testing.T) {
+func TestErrorNotPointerToStruct(t *testing.T) {
 	err := Parse("text")
-
 	if err != ErrNotPointer {
-		t.Fail()
+		t.Fatalf("error: %v", err)
 	}
 }
 
