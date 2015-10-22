@@ -1,8 +1,8 @@
 # FlagStruct - simple way to register and parse flag into struct
 
 [![Build Status](https://travis-ci.org/ngdinhtoan/flagstruct.svg)](https://travis-ci.org/ngdinhtoan/flagstruct)
+[![Coverage](http://gocover.io/_badge/github.com/ngdinhtoan/flagstruct?0)](http://gocover.io/github.com/ngdinhtoan/flagstruct)
 [![GoDoc](https://godoc.org/github.com/ngdinhtoan/flagstruct?status.svg)](https://godoc.org/github.com/ngdinhtoan/flagstruct)
-[![Coverage Status](https://coveralls.io/repos/ngdinhtoan/flagstruct/badge.svg?branch=master&service=github)](https://coveralls.io/github/ngdinhtoan/flagstruct?branch=master)
 
 ## Install
 
