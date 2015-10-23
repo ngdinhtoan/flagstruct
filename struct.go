@@ -31,15 +31,34 @@ func structVal(i interface{}) reflect.Value {
 // structFields returns list of field and data which have tag flag
 func structFields(i interface{}) []fieldData {
 	sv := structVal(i)
-	t := sv.Type()
+	return getFields(sv)
+}
 
+func getFields(v reflect.Value) []fieldData {
 	var f []fieldData
+
+	t := v.Type()
 	for i := 0; i < t.NumField(); i = i + 1 {
 		field := t.Field(i)
 
 		// we can't access the value of unexported or anonymous fields
-		if field.PkgPath != "" || field.Anonymous {
+		if field.PkgPath != "" {
 			continue
+		}
+
+		if field.Anonymous {
+			av := v.FieldByName(field.Name)
+			if av.Kind() == reflect.Ptr {
+				av = av.Elem()
+			}
+
+			if av.IsValid() == false {
+				continue
+			}
+
+			if fields := getFields(av); len(fields) > 0 {
+				f = append(f, fields...)
+			}
 		}
 
 		// don't check if it's omitted
@@ -50,7 +69,7 @@ func structFields(i interface{}) []fieldData {
 
 		fd := fieldData{
 			field: field,
-			value: sv.FieldByName(field.Name),
+			value: v.FieldByName(field.Name),
 			tag:   parseTag(tag),
 		}
 

@@ -72,9 +72,6 @@ func (td tagData) boolValue() bool {
 
 func parseTag(tag string) tagData {
 	td := tagData{}
-	if tag == "" || tag == "-" {
-		return td
-	}
 
 	tagOpt := strings.Split(tag, ",")
 	td.name = tagOpt[0]
