@@ -34,3 +34,17 @@ func TestNotStruct(t *testing.T) {
 
 	structVal("string")
 }
+
+func TestIsStructPointer(t *testing.T) {
+	type A struct{}
+	var a *A
+
+	if isStructPointer(a) == true {
+		t.Fail()
+	}
+
+	a = &A{}
+	if isStructPointer(a) == false {
+		t.Fail()
+	}
+}

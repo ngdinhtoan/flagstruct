@@ -88,10 +88,5 @@ func isStructPointer(s interface{}) bool {
 		return false
 	}
 
-	// uninitialized zero value of a struct
-	if v.Kind() == reflect.Invalid {
-		return false
-	}
-
 	return v.Kind() == reflect.Struct
 }
