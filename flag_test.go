@@ -37,6 +37,10 @@ func TestParse(t *testing.T) {
 	fmt.Printf("%+v\n\n", dc)
 
 	fs.PrintDefaults()
+
+	if err := ParseByFlagSet(&dc, fs, []string{}); err != ErrFlagParsed {
+		t.Fatal(err)
+	}
 }
 
 func TestAllType(t *testing.T) {
