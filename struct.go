@@ -2,14 +2,12 @@ package flagstruct
 
 import "reflect"
 
-const tagName = "flag"
-
 // fieldData contains StructField and Value of a property,
 // that extracted from input struct
 type fieldData struct {
 	field reflect.StructField
 	value reflect.Value
-	tag   tagData
+	tag   *tagData
 }
 
 // structVal returns reflect.Value of struct
@@ -59,21 +57,19 @@ func getFields(v reflect.Value) []fieldData {
 			if fields := getFields(av); len(fields) > 0 {
 				f = append(f, fields...)
 			}
-		}
 
-		// don't check if it's omitted
-		var tag string
-		if tag = field.Tag.Get(tagName); tag == "-" || tag == "" {
 			continue
 		}
 
-		fd := fieldData{
-			field: field,
-			value: v.FieldByName(field.Name),
-			tag:   parseTag(tag),
-		}
+		if td := parseTag(field); td != nil {
+			fd := fieldData{
+				field: field,
+				value: v.FieldByName(field.Name),
+				tag:   td,
+			}
 
-		f = append(f, fd)
+			f = append(f, fd)
+		}
 	}
 
 	return f

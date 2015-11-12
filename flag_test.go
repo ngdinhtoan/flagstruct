@@ -7,13 +7,13 @@ import (
 )
 
 type dbconfig struct {
-	Host         string `flag:"host,localhost,hostname of database server"`
-	Port         int64  `flag:"port,3306,port of database server"`
-	DbName       string `flag:"db_name,test_db,database name"`
+	Host         string `flag:"host" default:"localhost" usage:"hostname of database server"`
+	Port         int64  `flag:"port" default:"3306" usage:"port of database server"`
+	DbName       string `flag:"db_name" default:"test_db" usage:"database name"`
 	Slave        bool   `flag:"slave"`
-	MaxConnetion uint   `flag:"max_connection,50"`
-
-	DontParse string
+	MaxConnetion uint   `flag:"max_connection" default:"50"`
+	DontParse    string `flag:"-"`
+	UsePropName  string `default:"123"`
 }
 
 func TestParse(t *testing.T) {
@@ -46,19 +46,19 @@ func TestParse(t *testing.T) {
 func TestAllType(t *testing.T) {
 	type testStruct struct {
 		Int        int     `flag:"int"`
-		IntDef     int     `flag:"int-def,-1"`
+		IntDef     int     `flag:"int-def" default:"-1"`
 		Int64      int64   `flag:"int64"`
-		Int64Def   int64   `flag:"int64-def,1"`
+		Int64Def   int64   `flag:"int64-def" default:"1"`
 		Uint       uint    `flag:"uint"`
-		UintDef    uint    `flag:"uint-def,1"`
+		UintDef    uint    `flag:"uint-def" default:"1"`
 		Uint64     uint64  `flag:"uint64"`
-		Uint64Def  uint64  `flag:"uint64-def,1"`
+		Uint64Def  uint64  `flag:"uint64-def" default:"1"`
 		String     string  `flag:"string"`
-		StringDef  string  `flag:"string-def,abc"`
+		StringDef  string  `flag:"string-def" default:"abc"`
 		Boolean    bool    `flag:"boolean"`
-		BooleanDef bool    `flag:"boolean-def,true"`
+		BooleanDef bool    `flag:"boolean-def" default:"true"`
 		Float64    float64 `flag:"float64"`
-		Float64Def float64 `flag:"float64-def,3.4"`
+		Float64Def float64 `flag:"float64-def" default:"3.4"`
 	}
 
 	ts := testStruct{}
@@ -94,15 +94,15 @@ func TestErrorNotPointerToStruct(t *testing.T) {
 
 func ExampleParseByFlagSet() {
 	type hostConfig struct {
-		Host string `flag:"host,localhost,hostname of database server"`
-		Port int64  `flag:"port,3306,port of database server"`
+		Host string `flag:"host" default:"localhost" usage:"hostname of database server"`
+		Port int64  `flag:"port" default:"3306" usage:"port of database server"`
 	}
 
 	type dbConfig struct {
 		hostConfig
-		DbName       string `flag:"db_name,test_db,database name"`
+		DbName       string `flag:"db_name" default:"test_db" usage:"database name"`
 		Slave        bool   `flag:"slave"`
-		MaxConnetion uint   `flag:"max_connection,50"`
+		MaxConnetion uint   `flag:"max_connection" default:"50"`
 	}
 
 	dc := dbConfig{}

@@ -6,7 +6,9 @@ Install
 
 Tag syntax
 
-	`flag:"flagname[,default_value[,usage]]"`
+	`flag:"flagname" default:"default_value" usage:"description here"`
+
+Tag `default` and `usage` can be omit.
 
 Example
 
@@ -19,9 +21,9 @@ Example
     )
 
     type dbConfig struct {
-    	Hostname string `flag:"hostname,localhost,Hostname"`
-    	Port     uint64 `flag:"port,3306"`
-    	DbName   string `flag:"db_name,,Database name"`
+    	Hostname string `flag:"hostname" default:"localhost" usage:"Hostname"`
+    	Port     uint64 `flag:"port" default:"3306"`
+    	DbName   string `flag:"db_name" usage:"Database name"`
     }
 
     func main() {

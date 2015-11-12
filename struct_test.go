@@ -16,8 +16,9 @@ func TestGetStructValue(t *testing.T) {
 	type B struct {
 		A
 		*AA
-		M string `flag:"m"`
-		n string // unexport string
+		M  string `flag:"m"`
+		YY string `flag:"-"`
+		n  string // unexport string
 	}
 
 	if fields := structFields(&B{}); len(fields) != 4 {

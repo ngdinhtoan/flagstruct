@@ -1,8 +1,14 @@
 package flagstruct
 
 import (
+	"reflect"
 	"strconv"
-	"strings"
+)
+
+const (
+	tagName    = "flag"
+	tagDefault = "default"
+	tagUsage   = "usage"
 )
 
 // tagData contains information about flag name, default value, usage string
@@ -70,18 +76,20 @@ func (td tagData) boolValue() bool {
 	return b
 }
 
-func parseTag(tag string) tagData {
-	td := tagData{}
+func parseTag(field reflect.StructField) *tagData {
+	var flagName string
 
-	tagOpt := strings.Split(tag, ",")
-	td.name = tagOpt[0]
-
-	if len(tagOpt) > 2 {
-		td.usage = tagOpt[2]
-		td.defValue = tagOpt[1]
-	} else if len(tagOpt) > 1 {
-		td.defValue = tagOpt[1]
+	if flagName = field.Tag.Get(tagName); flagName == "-" {
+		return nil
 	}
 
-	return td
+	if flagName == "" {
+		flagName = field.Name
+	}
+
+	return &tagData{
+		name:     flagName,
+		defValue: field.Tag.Get(tagDefault),
+		usage:    field.Tag.Get(tagUsage),
+	}
 }
