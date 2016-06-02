@@ -39,11 +39,6 @@ func getFields(v reflect.Value) []fieldData {
 	for i := 0; i < t.NumField(); i = i + 1 {
 		field := t.Field(i)
 
-		// we can't access the value of unexported or anonymous fields
-		if field.PkgPath != "" {
-			continue
-		}
-
 		if field.Anonymous {
 			av := v.FieldByName(field.Name)
 			if av.Kind() == reflect.Ptr {

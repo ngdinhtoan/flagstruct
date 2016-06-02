@@ -21,8 +21,8 @@ func TestGetStructValue(t *testing.T) {
 		n  string // unexport string
 	}
 
-	if fields := structFields(&B{}); len(fields) != 4 {
-		t.Fail()
+	if fields := structFields(&B{}); len(fields) != 5 {
+		t.Fatalf("len of field should be 5, got %d", len(fields))
 	}
 }
 
