@@ -33,10 +33,9 @@ func TestParse(t *testing.T) {
 		t.Fatalf("Max connection value must be %d, get %d", expectedMaxConn, dc.MaxConnetion)
 	}
 
-	fmt.Println("Test Data: ")
-	fmt.Printf("%+v\n\n", dc)
-
-	fs.PrintDefaults()
+	//fmt.Println("Test Data: ")
+	//fmt.Printf("%+v\n\n", dc)
+	//fs.PrintDefaults()
 
 	if err := ParseByFlagSet(&dc, fs, []string{}); err != ErrFlagParsed {
 		t.Fatal(err)
