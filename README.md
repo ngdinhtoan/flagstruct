@@ -1,4 +1,6 @@
-# FlagStruct - simple way to register and parse flag into struct
+# FlagStruct
+
+*A simple way to register and parse flag into struct*
 
 [![Build Status](https://travis-ci.org/ngdinhtoan/flagstruct.svg)](https://travis-ci.org/ngdinhtoan/flagstruct)
 [![Coverage Status](https://coveralls.io/repos/github/ngdinhtoan/flagstruct/badge.svg)](https://coveralls.io/github/ngdinhtoan/flagstruct)
