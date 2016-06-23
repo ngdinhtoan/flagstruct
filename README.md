@@ -12,7 +12,7 @@
 
 ## Tag syntax
 
-	`flag:"flagname" default:"default_value" usage:"description here"`
+	`flag:"name" default:"value" usage:"description"`
 
 Tag `default` and `usage` can be omit.
 
