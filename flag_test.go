@@ -3,6 +3,7 @@ package flagstruct
 import (
 	"flag"
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -116,4 +117,32 @@ func ExampleParseByFlagSet() {
 	// Output:
 	// Host: 127.0.0.1
 	// Port: 3306
+}
+
+// Test user-defined type
+type conpool []string
+
+func (cp *conpool) String() string {
+	return strings.Join([]string(*cp), ",")
+}
+
+func (cp *conpool) Set(s string) error {
+	*cp = strings.Split(s, ",")
+	return nil
+}
+
+type testStruct struct {
+	Pool conpool `flag:"pool" usage:"List of connection"`
+}
+
+func TestUserDefinedType(t *testing.T) {
+	ts := testStruct{}
+	fs := flag.NewFlagSet("test", flag.PanicOnError)
+	if err := ParseByFlagSet(&ts, fs, []string{"-pool=1,2,3"}); err != nil {
+		t.Fatal(err)
+	}
+
+	if ts.Pool.String() != "1,2,3" {
+		t.Fatalf("expected: 1,2,3; obtained: %s", ts.Pool.String())
+	}
 }

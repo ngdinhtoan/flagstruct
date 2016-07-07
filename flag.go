@@ -14,7 +14,11 @@ var (
 	// ErrFlagParsed returns when try to parse while flag has been parsed
 	ErrFlagParsed = errors.New("flag set has been parsed, could not register more flag")
 	// ErrUnsupportType returns when given struct have field that is not supported by flag
-	ErrUnsupportType = errors.New("only support field types: int, int64, uint, uint64, float64, string and bool")
+	ErrUnsupportType = errors.New("only support field types: int, int64, uint, uint64, float64, string, bool and type that implement flag.Value interface")
+)
+
+var (
+	flagValueType = reflect.TypeOf((*flag.Value)(nil)).Elem()
 )
 
 // Parse properties of struct to flag,
@@ -69,7 +73,15 @@ func registerFlagStruct(i interface{}, fs *flag.FlagSet) error {
 		case reflect.Float64:
 			fs.Float64Var((*float64)(fieldPtr), flagName, fd.tag.float64Value(), flagUsage)
 		default:
-			return ErrUnsupportType
+			if !reflect.PtrTo(field.Type).Implements(flagValueType) {
+				return ErrUnsupportType
+			}
+
+			fieldValue := reflect.NewAt(field.Type, fieldPtr)
+			switch value := fieldValue.Interface().(type) {
+			case flag.Value:
+				fs.Var(value, flagName, flagUsage)
+			}
 		}
 	}
 
