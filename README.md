@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/ngdinhtoan/flagstruct.svg)](https://travis-ci.org/ngdinhtoan/flagstruct)
 [![Coverage Status](https://coveralls.io/repos/github/ngdinhtoan/flagstruct/badge.svg)](https://coveralls.io/github/ngdinhtoan/flagstruct)
+[![Go Report Card](https://goreportcard.com/badge/ngdinhtoan/flagstruct)](https://goreportcard.com/report/ngdinhtoan/flagstruct)
 [![GoDoc](https://godoc.org/github.com/ngdinhtoan/flagstruct?status.svg)](https://godoc.org/github.com/ngdinhtoan/flagstruct)
 
 ## Install
